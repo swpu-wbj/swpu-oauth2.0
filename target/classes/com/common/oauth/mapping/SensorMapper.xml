@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.common.oauth.service.SensorMapper">
+  <resultMap id="BaseResultMap" type="com.common.oauth.model.Sensor">
+    <id column="sid" jdbcType="CHAR" property="sid" />
+    <result column="s_no" jdbcType="VARCHAR" property="sNo" />
+    <result column="e_id" jdbcType="CHAR" property="eId" />
+    <result column="s_type" jdbcType="VARCHAR" property="sType" />
+    <result column="s_status" jdbcType="INTEGER" property="sStatus" />
+    <result column="yid" jdbcType="CHAR" property="yid" />
+    <result column="zid" jdbcType="CHAR" property="zid" />
+    <result column="hid" jdbcType="CHAR" property="hid" />
+    <result column="oc_id" jdbcType="CHAR" property="ocId" />
+    <result column="s_alias" jdbcType="VARCHAR" property="sAlias" />
+    <result column="s_url" jdbcType="VARCHAR" property="sUrl" />
+    <result column="s_sort_id" jdbcType="INTEGER" property="sSortId" />
+    <result column="timestamp" jdbcType="BIGINT" property="timestamp" />
+    <result column="s_his_url" jdbcType="VARCHAR" property="sHisUrl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.common.oauth.model.Sensor">
+    <result column="s_value" jdbcType="LONGVARCHAR" property="sValue" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    sid, s_no, e_id, s_type, s_status, yid, zid, hid, oc_id, s_alias, s_url, s_sort_id, 
+    timestamp, s_his_url
+  </sql>
+  <sql id="Blob_Column_List">
+    s_value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_alarm_sensor
+    where sid = #{sid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tb_alarm_sensor
+    where sid = #{sid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.common.oauth.model.Sensor">
+    insert into tb_alarm_sensor (sid, s_no, e_id, s_type, 
+      s_status, yid, zid, hid, 
+      oc_id, s_alias, s_url, s_sort_id, 
+      timestamp, s_his_url, s_value
+      )
+    values (#{sid,jdbcType=CHAR}, #{sNo,jdbcType=VARCHAR}, #{eId,jdbcType=CHAR}, #{sType,jdbcType=VARCHAR}, 
+      #{sStatus,jdbcType=INTEGER}, #{yid,jdbcType=CHAR}, #{zid,jdbcType=CHAR}, #{hid,jdbcType=CHAR}, 
+      #{ocId,jdbcType=CHAR}, #{sAlias,jdbcType=VARCHAR}, #{sUrl,jdbcType=VARCHAR}, #{sSortId,jdbcType=INTEGER}, 
+      #{timestamp,jdbcType=BIGINT}, #{sHisUrl,jdbcType=VARCHAR}, #{sValue,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.common.oauth.model.Sensor">
+    insert into tb_alarm_sensor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        sid,
+      </if>
+      <if test="sNo != null">
+        s_no,
+      </if>
+      <if test="eId != null">
+        e_id,
+      </if>
+      <if test="sType != null">
+        s_type,
+      </if>
+      <if test="sStatus != null">
+        s_status,
+      </if>
+      <if test="yid != null">
+        yid,
+      </if>
+      <if test="zid != null">
+        zid,
+      </if>
+      <if test="hid != null">
+        hid,
+      </if>
+      <if test="ocId != null">
+        oc_id,
+      </if>
+      <if test="sAlias != null">
+        s_alias,
+      </if>
+      <if test="sUrl != null">
+        s_url,
+      </if>
+      <if test="sSortId != null">
+        s_sort_id,
+      </if>
+      <if test="timestamp != null">
+        timestamp,
+      </if>
+      <if test="sHisUrl != null">
+        s_his_url,
+      </if>
+      <if test="sValue != null">
+        s_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sid != null">
+        #{sid,jdbcType=CHAR},
+      </if>
+      <if test="sNo != null">
+        #{sNo,jdbcType=VARCHAR},
+      </if>
+      <if test="eId != null">
+        #{eId,jdbcType=CHAR},
+      </if>
+      <if test="sType != null">
+        #{sType,jdbcType=VARCHAR},
+      </if>
+      <if test="sStatus != null">
+        #{sStatus,jdbcType=INTEGER},
+      </if>
+      <if test="yid != null">
+        #{yid,jdbcType=CHAR},
+      </if>
+      <if test="zid != null">
+        #{zid,jdbcType=CHAR},
+      </if>
+      <if test="hid != null">
+        #{hid,jdbcType=CHAR},
+      </if>
+      <if test="ocId != null">
+        #{ocId,jdbcType=CHAR},
+      </if>
+      <if test="sAlias != null">
+        #{sAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="sUrl != null">
+        #{sUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sSortId != null">
+        #{sSortId,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="sHisUrl != null">
+        #{sHisUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sValue != null">
+        #{sValue,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.common.oauth.model.Sensor">
+    update tb_alarm_sensor
+    <set>
+      <if test="sNo != null">
+        s_no = #{sNo,jdbcType=VARCHAR},
+      </if>
+      <if test="eId != null">
+        e_id = #{eId,jdbcType=CHAR},
+      </if>
+      <if test="sType != null">
+        s_type = #{sType,jdbcType=VARCHAR},
+      </if>
+      <if test="sStatus != null">
+        s_status = #{sStatus,jdbcType=INTEGER},
+      </if>
+      <if test="yid != null">
+        yid = #{yid,jdbcType=CHAR},
+      </if>
+      <if test="zid != null">
+        zid = #{zid,jdbcType=CHAR},
+      </if>
+      <if test="hid != null">
+        hid = #{hid,jdbcType=CHAR},
+      </if>
+      <if test="ocId != null">
+        oc_id = #{ocId,jdbcType=CHAR},
+      </if>
+      <if test="sAlias != null">
+        s_alias = #{sAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="sUrl != null">
+        s_url = #{sUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sSortId != null">
+        s_sort_id = #{sSortId,jdbcType=INTEGER},
+      </if>
+      <if test="timestamp != null">
+        timestamp = #{timestamp,jdbcType=BIGINT},
+      </if>
+      <if test="sHisUrl != null">
+        s_his_url = #{sHisUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sValue != null">
+        s_value = #{sValue,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where sid = #{sid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.common.oauth.model.Sensor">
+    update tb_alarm_sensor
+    set s_no = #{sNo,jdbcType=VARCHAR},
+      e_id = #{eId,jdbcType=CHAR},
+      s_type = #{sType,jdbcType=VARCHAR},
+      s_status = #{sStatus,jdbcType=INTEGER},
+      yid = #{yid,jdbcType=CHAR},
+      zid = #{zid,jdbcType=CHAR},
+      hid = #{hid,jdbcType=CHAR},
+      oc_id = #{ocId,jdbcType=CHAR},
+      s_alias = #{sAlias,jdbcType=VARCHAR},
+      s_url = #{sUrl,jdbcType=VARCHAR},
+      s_sort_id = #{sSortId,jdbcType=INTEGER},
+      timestamp = #{timestamp,jdbcType=BIGINT},
+      s_his_url = #{sHisUrl,jdbcType=VARCHAR},
+      s_value = #{sValue,jdbcType=LONGVARCHAR}
+    where sid = #{sid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.common.oauth.model.Sensor">
+    update tb_alarm_sensor
+    set s_no = #{sNo,jdbcType=VARCHAR},
+      e_id = #{eId,jdbcType=CHAR},
+      s_type = #{sType,jdbcType=VARCHAR},
+      s_status = #{sStatus,jdbcType=INTEGER},
+      yid = #{yid,jdbcType=CHAR},
+      zid = #{zid,jdbcType=CHAR},
+      hid = #{hid,jdbcType=CHAR},
+      oc_id = #{ocId,jdbcType=CHAR},
+      s_alias = #{sAlias,jdbcType=VARCHAR},
+      s_url = #{sUrl,jdbcType=VARCHAR},
+      s_sort_id = #{sSortId,jdbcType=INTEGER},
+      timestamp = #{timestamp,jdbcType=BIGINT},
+      s_his_url = #{sHisUrl,jdbcType=VARCHAR}
+    where sid = #{sid,jdbcType=CHAR}
+  </update>
+</mapper>
